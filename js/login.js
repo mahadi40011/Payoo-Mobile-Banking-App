@@ -13,13 +13,26 @@ document
     let pinErrorMessage = document.getElementById("pinErrorMsg");
     pinErrorMessage.textContent = "";
 
+    // Phone number validity check
+    if(phoneNumberValue.length === 0){
+      numberErrorMessage.textContent = "Please Enter a Valid Number";
+      return;
+    }
     if (phoneNumberValue !== phoneNumber) {
       numberErrorMessage.textContent = "× Invalid Number";
+      return;
+    }
+
+    // pin validity check
+    if(pinValue.length === 0){
+      pinErrorMessage.textContent = "Enter 4 Digit Pin";
+      return;
     }
     if (pinValue !== pin) {
       pinErrorMessage.textContent = "× Wrong Pin";
-    } 
-    if(phoneNumberValue === phoneNumber && pinValue === pin){
-      window.location.href='./home.html'
+      return;
     }
+
+    // navigate to Home page
+    window.location.href='./home.html'
   });
