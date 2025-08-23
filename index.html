@@ -4,36 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payoo Mobile Banking App</title>
-    <link rel="stylesheet" href="styles/style.css" />
-
-
     <!-- daisyUi link -->
      <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <!-- tailwind css -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="bg-[#F4F5F7] h-[100vh] flex justify-center items-center flex-col p-5">
-    <div class="h-28 w-64 bg-[url(assets/bg.png)] bg-cover flex justify-center items-center">
-        <img src="assets/Group.png" alt="">
-    </div>
-    <form action="" class=" w-85 bg-white rounded-2xl p-5">
-        <div class="mb-5">
-            <label class="font-semibold">Mobile Number</label>
-            <br>
-            <input type="text" placeholder="Enter Your Number" id="phoneNumber" class="w-full input mt-2 bg-[#F4F5F7] rounded-3xl" />
-            <p id="numberErrorMsg" class="ml-1 text-red-600"></p>
+  <body class="bg-[#F4F5F7] h-[100vh]">
+    <main class="max-w-lg mx-auto px-5 flex flex-col items-center justify-center ">
+        <div class="h-32 w-[75%] bg-[url(assets/bg.png)] bg-cover flex justify-center items-center">
+            <img class=" h-[60%]" src="assets/Group.png" alt="">
         </div>
-        <div class="mb-5 ">
-            <label class="font-semibold">4 Digit Pin</label>
-            <br>
-            <input type="text" placeholder="Enter 4 Digit Pin" id="pin" class="w-full input mt-2 bg-[#F4F5F7] rounded-3xl" />
-            <p id="pinErrorMsg" class="ml-1 text-red-600"></p>
-        </div>
-        <button type="button" id="btn-login" class="btn h-11 text-[20px] font-semibold text-white bg-[#0874F2] w-full rounded-3xl ">Login</button>
-        
-    </form>
+        <form action="" class="w-full bg-white rounded-2xl p-5">
+            <div class="mb-5">
+                <label class="font-semibold">Mobile Number</label>
+                <br>
+                <input type="text" placeholder="Enter Your Number" id="phoneNumber" class="border-none h-11 focus:outline-none w-full input mt-2 bg-[#F4F5F7] rounded-3xl" />
+                <p id="numberErrorMsg" class="ml-1 text-red-600"></p>
+            </div>
+            <div class="mb-5 ">
+                <label class="font-semibold">4 Digit Pin</label>
+                <br>
+                <input type="text" placeholder="Enter 4 Digit Pin" id="pin" class="border-none h-11 focus:outline-none w-full input mt-2 bg-[#F4F5F7] rounded-3xl" />
+                <p id="pinErrorMsg" class="ml-1 text-red-600"></p>
+            </div>
+            <button type="button" id="btn-login" class="btn h-11 text-[20px] font-semibold text-white bg-[#0874F2] w-full rounded-3xl ">Login</button>            
+        </form>
+    </main>
 
-
-    <script src="js/script.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>
