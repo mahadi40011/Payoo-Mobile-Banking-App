@@ -44,7 +44,7 @@
             </div>
             <div id="get-bonus-btn" class=" home-page-toggle-btn border-2 border-gray-200 py-5 px-2 rounded-xl ">
                 <img class="mx-auto" src="./assets/bonus1.png" alt="">
-                <p class="toggle-btn-title text-xs font-semibold text-center text-[#08080880] ">Get Bonus</p>
+                <p id="get-bonus-title" class="toggle-btn-title text-xs font-semibold text-center text-[#08080880] ">Get Bonus</p>
             </div>
             <div id="pay-bill-btn" class=" home-page-toggle-btn border-2 border-gray-200 py-5 px-2 rounded-xl ">
                 <img class="mx-auto" src="./assets/purse1.png" alt="">
@@ -143,6 +143,20 @@
                     <p id="transfer-pin-ErrorMsg" class="ml-3 text-red-600"></p>
                 </div>
                 <button id="btn-transfer-money" type="button"  class="btn h-11 text-[20px] font-semibold text-white bg-[#0874F2] w-full rounded-3xl ">Send Now</button>            
+            </form>        
+        </div>
+
+        <!-- get bonus form section -->
+        <div id="get-bonus-parent" class="homepage-form hidden">
+            <h1 class="mb-3 font-bold text-lg">Get Bonus</h1>
+            <form action="" class="bg-white rounded-2xl p-5 w-full">
+                <div class="mb-5">
+                    <label class="font-semibold text-[#080808b3]">Enter Bonus Coupon</label>
+                    <br>
+                    <input id="get-bonus-coupon" type="text" placeholder="Enter your coupon"  class="border-none h-11 focus:outline-none w-full input mt-2 bg-[#F4F5F7] rounded-3xl" />
+                    <p id="get-bonus-ErrorMsg" class="ml-3 text-red-600"></p>
+                </div>
+                <button id="btn-get-bonus" type="button"  class="btn h-11 text-[20px] font-semibold text-white bg-[#0874F2] w-full rounded-3xl ">Send Now</button>            
             </form>        
         </div>
 

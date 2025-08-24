@@ -50,6 +50,11 @@ document.getElementById('transfer-money-btn').addEventListener('click', function
     toggleHomePageBtn('transfer-money-btn')
     toggleBtnTitle("transfer-money-title")
 })
+document.getElementById("get-bonus-btn").addEventListener("click", function(){
+    toggleHomePageForm("get-bonus-parent")
+    toggleHomePageBtn('get-bonus-btn')
+    toggleBtnTitle("get-bonus-title")
+})
 
 // add Money section js
 document.getElementById('btn-add-money').addEventListener('click', function(event){
@@ -266,5 +271,29 @@ document.getElementById('btn-transfer-money').addEventListener('click', function
     //transfer balance
     const newBalance = availableBalance - transferAmount
     document.getElementById('balance').innerText = newBalance;
+
+})
+
+// get bonus section js
+document.getElementById('btn-get-bonus').addEventListener('click', function(event){
+    event.preventDefault()
+
+    // error messages
+    let getBonusErrorMsg = document.getElementById("get-bonus-ErrorMsg");
+    getBonusErrorMsg.textContent = "";
+
+    // input field value
+    const getBonusCouponNumber = document.getElementById('get-bonus-coupon').value;
+    let availableBalance = parseInt(document.getElementById('balance').innerText)
+
+    // Coupon Number validity check
+    if(getBonusCouponNumber.length === 0){
+        getBonusErrorMsg.textContent = "Please Provide a Valid Coupon Number"
+        return;
+    }
+
+    // //get Bonus balance
+    // const newBalance = availableBalance - getBonusAmount
+    // document.getElementById('balance').innerText = newBalance;
 
 })
