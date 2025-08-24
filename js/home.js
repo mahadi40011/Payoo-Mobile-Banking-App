@@ -1,19 +1,54 @@
 // global variable
 const pin = '1234';
 
-// toggle section
-document.getElementById('add-money').addEventListener('click', function(){
-    document.getElementById('withdraw-money-parent').style.display = 'none'
-    document.getElementById('add-money-parent').style.display = 'block'
-    document.getElementById('add-money').style.border = '2px solid blue'
-    document.getElementById('cashout').style.border = ''
+// function to use toggle homepage form
+function toggleHomePageForm(id){
+    const toggleForms = document.getElementsByClassName("homepage-form")
+    for(const toggleForm of toggleForms){
+        toggleForm.style.display = "none"
+    }
+    document.getElementById(id).style.display = "block"
+}
 
+// function to use toggle home page btn 
+function toggleHomePageBtn(id){
+    const toggleBtns = document.getElementsByClassName('home-page-toggle-btn')
+    for(const toggleBtn of toggleBtns){
+        toggleBtn.classList.remove("bg-[#0845f20d]", "border-[#0874F2]")
+        toggleBtn.classList.add("border-gray-200")
+    }
+    const currentBtn = document.getElementById(id)
+    currentBtn.classList.remove("border-gray-200")
+    currentBtn.classList.add("bg-[#0845f20d]", "border-[#0874F2]",)
+}
+
+// funtion to use toggle btn title
+function toggleBtnTitle(id){
+    const toggleBtnTitles = document.getElementsByClassName("toggle-btn-title")
+    for(const toggleBtnTitle of toggleBtnTitles){
+        toggleBtnTitle.classList.remove("font-bold", "text-blue-500")
+        toggleBtnTitle.classList.add("font-semibold", "text-[#08080880]")
+    }
+    const currentBtnTitle = document.getElementById(id)
+    currentBtnTitle.classList.remove("font-semibold", "text-[#08080880]")
+    currentBtnTitle.classList.add("font-bold", "text-blue-500")
+}
+
+// toggle section
+document.getElementById('add-money-btn').addEventListener('click', function(){
+    toggleHomePageForm("add-money-parent")
+    toggleHomePageBtn('add-money-btn')
+    toggleBtnTitle('add-money-title')
 })
-document.getElementById('cashout').addEventListener('click', function(){
-    document.getElementById('add-money-parent').style.display = 'none'
-    document.getElementById('withdraw-money-parent').style.display = 'block'
-    document.getElementById('cashout').style.border = '2px solid blue'
-    document.getElementById('add-money').style.border = ''
+document.getElementById('cashout-btn').addEventListener('click', function(){
+    toggleHomePageForm("withdraw-money-parent")
+    toggleHomePageBtn('cashout-btn')
+    toggleBtnTitle("cashout-title")
+})
+document.getElementById('transfer-money-btn').addEventListener('click', function(){
+    toggleHomePageForm("transfer-money-parent")
+    toggleHomePageBtn('transfer-money-btn')
+    toggleBtnTitle("transfer-money-title")
 })
 
 // add Money section js
@@ -92,11 +127,10 @@ document.getElementById('btn-add-money').addEventListener('click', function(even
     document.getElementById('balance').innerText = newBalance;
 })
 
-
 // withdraw money section js
 document.getElementById('btn-withdraw-money').addEventListener('click', function(event){
     event.preventDefault()
-    console.log('hello')
+    
     // error messages
     let agentNumberErrorMsg = document.getElementById("agent-number-ErrorMsg");
     agentNumberErrorMsg.textContent = "";
@@ -160,6 +194,77 @@ document.getElementById('btn-withdraw-money').addEventListener('click', function
 
     //withdraw balance
     const newBalance = availableBalance - withdrawAmount
+    document.getElementById('balance').innerText = newBalance;
+
+})
+
+// transfer money section js
+document.getElementById('btn-transfer-money').addEventListener('click', function(event){
+    event.preventDefault()
+
+    // error messages
+    let transferAgentNumberErrorMsg = document.getElementById("transfer-agent-number-ErrorMsg");
+    transferAgentNumberErrorMsg.textContent = "";
+    let transferAmountErrorMsg = document.getElementById("transfer-amount-ErrorMsg");
+    transferAmountErrorMsg.textContent = "";
+    let transferPinErrorMsg = document.getElementById("transfer-pin-ErrorMsg");
+    transferPinErrorMsg.textContent = "";
+
+    // input field value
+    const transferAgentNumber = document.getElementById('transfer-agent-number').value;
+    const transferAmount = document.getElementById("transfer-amount").value;
+    const pinValue = document.getElementById('transfer-pin').value;
+    let availableBalance = parseInt(document.getElementById('balance').innerText)
+
+    // transfer agent Number validity check
+    if(transferAgentNumber.length === 0){
+        transferAgentNumberErrorMsg.textContent = "Please Provide a Valid Number"
+        return;
+    }
+    if(transferAgentNumber.length !== 11){
+        transferAgentNumberErrorMsg.textContent = "× Invalid Number";
+        return;
+    }
+    if(transferAgentNumber.length === 11){
+        for(Character of transferAgentNumber){
+            if(isNaN(Character) || Character === ' '){
+                transferAgentNumberErrorMsg.textContent = "× Invalid Number";
+                return;
+            }
+        }
+    }
+
+    // transfer Amount validity check
+    if(transferAmount >= availableBalance){
+        transferAmountErrorMsg.textContent = "Unavailable Balance";
+        return;     
+    }
+    if(transferAmount === ''){
+        transferAmountErrorMsg.textContent = "Please Enter Valid Amount";
+        return;
+    }
+    for(char of transferAmount){
+        if(isNaN(char) || char === ' '){
+            transferAmountErrorMsg.textContent = "× Invalid Amount";
+            return;
+        }
+    }
+
+    //transfer Amount string to integer convert
+    const correctAmount = parseInt(transferAmount)
+
+    //transfer pin validity check
+    if(pinValue.length === 0){
+        transferPinErrorMsg.textContent = "Enter 4 Digit Pin";
+        return;
+    }
+    if (pinValue !== pin) {
+      transferPinErrorMsg.textContent = "× Wrong Pin";
+      return;
+    } 
+
+    //transfer balance
+    const newBalance = availableBalance - transferAmount
     document.getElementById('balance').innerText = newBalance;
 
 })
