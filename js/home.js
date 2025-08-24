@@ -55,6 +55,11 @@ document.getElementById("get-bonus-btn").addEventListener("click", function(){
     toggleHomePageBtn('get-bonus-btn')
     toggleBtnTitle("get-bonus-title")
 })
+document.getElementById("pay-bill-btn").addEventListener("click", function(){
+    toggleHomePageForm("pay-bill-parent")
+    toggleHomePageBtn('pay-bill-btn')
+    toggleBtnTitle("pay-bill-title")
+})
 
 // add Money section js
 document.getElementById('btn-add-money').addEventListener('click', function(event){
@@ -169,7 +174,7 @@ document.getElementById('btn-withdraw-money').addEventListener('click', function
     }
 
     // withdraw Amount validity check
-    if(withdrawAmount >= availableBalance){
+    if(withdrawAmount > availableBalance){
         withdrawAmountErrorMsg.textContent = "Unavailable Balance";
         return;     
     }
@@ -296,4 +301,78 @@ document.getElementById('btn-get-bonus').addEventListener('click', function(even
     // const newBalance = availableBalance - getBonusAmount
     // document.getElementById('balance').innerText = newBalance;
 
+})
+
+// Pay Bill section js
+document.getElementById('btn-pay-bill').addEventListener('click', function(event){
+    event.preventDefault()
+
+    // error messages
+    let payBillSelectErrorMsg = document.getElementById('pay-bill-select-ErrorMsg');
+    payBillSelectErrorMsg.textContent = "";
+    let billerAccountNumberErrorMsg = document.getElementById("biller-account-number-ErrorMsg");
+    billerAccountNumberErrorMsg.textContent = "";
+    let payAmountErrorMsg = document.getElementById("pay-amount-ErrorMsg");
+    payAmountErrorMsg.textContent = "";
+    let payBillPinErrorMsg = document.getElementById("paybill-pin-ErrorMsg");
+    payBillPinErrorMsg.textContent = "";
+
+
+    // input field value
+    const payBillSelect = document.getElementById('pay-bill-select').value;
+    const billerAccountNumber = document.getElementById('biller-account-number').value;
+    const payAmount = document.getElementById("pay-amount").value;
+    const pinValue = document.getElementById('pay-bill-pin').value;
+    let availableBalance = parseInt(document.getElementById('balance').innerText);
+
+    // Pay Bill Type selection check
+    if(payBillSelect === 'Select Bill Type'){
+        payBillSelectErrorMsg.textContent = "Please Select a Bill Type";
+        return;
+    }
+
+    // Biller Account Number validity check
+    if(billerAccountNumber.length === 0){
+        billerAccountNumberErrorMsg.innerText = "Please Provide a Valid Account Number"
+        return;
+    }
+    for(Character of billerAccountNumber){
+        if(isNaN(Character) || Character === ' '){
+            billerAccountNumberErrorMsg.textContent = "× Invalid Account Number";
+            return;
+        }
+    }
+
+    // pay Amount validity check
+    if(payAmount > availableBalance){
+        payAmountErrorMsg.textContent = "Unavailable Balance";
+        return;     
+    }
+    if(payAmount === ''){
+        payAmountErrorMsg.textContent = "Please Enter Valid Amount";
+        return;
+    }
+    for(char of payAmount){
+        if(isNaN(char) || char === ' '){
+            payAmountErrorMsg.textContent = "× Invalid Amount";
+            return;
+        }
+    }
+
+    //pay Amount string to integer convert
+    const correctAmount = parseInt(payAmount)
+    
+    // pin validity check
+    if(pinValue.length === 0){
+        payBillPinErrorMsg.textContent = "Enter 4 Digit Pin";
+        return;
+    }
+    if (pinValue !== pin) {
+      payBillPinErrorMsg.textContent = "× Wrong Pin";
+      return;
+    } 
+
+    // pay balance
+    const newBalance = availableBalance - correctAmount;
+    document.getElementById('balance').innerText = newBalance;
 })
