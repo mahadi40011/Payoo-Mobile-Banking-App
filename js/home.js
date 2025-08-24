@@ -1,5 +1,6 @@
 // global variable
 const pin = '1234';
+const transactionList = [];
 
 // function to use toggle homepage form
 function toggleHomePageForm(id){
@@ -60,6 +61,11 @@ document.getElementById("pay-bill-btn").addEventListener("click", function(){
     toggleHomePageBtn('pay-bill-btn')
     toggleBtnTitle("pay-bill-title")
 })
+document.getElementById("transaction-btn").addEventListener("click", function(){
+    toggleHomePageForm("transaction-parent")
+    toggleHomePageBtn('transaction-btn')
+    toggleBtnTitle("transaction-title")
+})
 
 // add Money section js
 document.getElementById('btn-add-money').addEventListener('click', function(event){
@@ -108,7 +114,7 @@ document.getElementById('btn-add-money').addEventListener('click', function(even
     }
 
     // addAmount validity check
-    if(addAmount === ''){
+    if(addAmount === '' || addAmount === '0'){
         addAmountErrorMsg.textContent = "Please Enter Valid Amount";
         return;
     }
@@ -135,6 +141,13 @@ document.getElementById('btn-add-money').addEventListener('click', function(even
     // add balance
     const newBalance = availableBalance + correctAmount;
     document.getElementById('balance').innerText = newBalance;
+
+    // transaction data
+    const data = {
+        name: 'Add Money',
+        date: new Date().toLocaleString('en-GB')
+    }
+    transactionList.unshift(data);
 })
 
 // withdraw money section js
@@ -178,7 +191,7 @@ document.getElementById('btn-withdraw-money').addEventListener('click', function
         withdrawAmountErrorMsg.textContent = "Unavailable Balance";
         return;     
     }
-    if(withdrawAmount === ''){
+    if(withdrawAmount === '' || withdrawAmount === '0'){
         withdrawAmountErrorMsg.textContent = "Please Enter Valid Amount";
         return;
     }
@@ -205,6 +218,13 @@ document.getElementById('btn-withdraw-money').addEventListener('click', function
     //withdraw balance
     const newBalance = availableBalance - withdrawAmount
     document.getElementById('balance').innerText = newBalance;
+
+    // transaction data
+    const data = {
+        name: 'Cash Out',
+        date: new Date().toLocaleString('en-GB')
+    }
+    transactionList.unshift(data);
 
 })
 
@@ -245,11 +265,11 @@ document.getElementById('btn-transfer-money').addEventListener('click', function
     }
 
     // transfer Amount validity check
-    if(transferAmount >= availableBalance){
+    if(transferAmount > availableBalance){
         transferAmountErrorMsg.textContent = "Unavailable Balance";
         return;     
     }
-    if(transferAmount === ''){
+    if(transferAmount === '' || transferAmount === '0'){
         transferAmountErrorMsg.textContent = "Please Enter Valid Amount";
         return;
     }
@@ -277,6 +297,13 @@ document.getElementById('btn-transfer-money').addEventListener('click', function
     const newBalance = availableBalance - transferAmount
     document.getElementById('balance').innerText = newBalance;
 
+    // transaction data
+    const data = {
+        name: 'Transfer Money',
+        date: new Date().toLocaleString('en-GB')
+    }
+    transactionList.unshift(data);
+
 })
 
 // get bonus section js
@@ -300,6 +327,13 @@ document.getElementById('btn-get-bonus').addEventListener('click', function(even
     // //get Bonus balance
     // const newBalance = availableBalance - getBonusAmount
     // document.getElementById('balance').innerText = newBalance;
+
+    // transaction data
+    const data = {
+        name: 'Got Coupon',
+        date: new Date().toLocaleString('en-GB')
+    }
+    transactionList.unshift(data);
 
 })
 
@@ -348,7 +382,7 @@ document.getElementById('btn-pay-bill').addEventListener('click', function(event
         payAmountErrorMsg.textContent = "Unavailable Balance";
         return;     
     }
-    if(payAmount === ''){
+    if(payAmount === '' || payAmount === '0' ){
         payAmountErrorMsg.textContent = "Please Enter Valid Amount";
         return;
     }
@@ -358,9 +392,9 @@ document.getElementById('btn-pay-bill').addEventListener('click', function(event
             return;
         }
     }
-
     //pay Amount string to integer convert
     const correctAmount = parseInt(payAmount)
+    
     
     // pin validity check
     if(pinValue.length === 0){
@@ -375,4 +409,35 @@ document.getElementById('btn-pay-bill').addEventListener('click', function(event
     // pay balance
     const newBalance = availableBalance - correctAmount;
     document.getElementById('balance').innerText = newBalance;
+
+    // transaction data
+    const data = {
+        name: 'Pay Bill',
+        date: new Date().toLocaleString('en-GB')
+    }
+    transactionList.unshift(data);
+})
+
+// transaction section js
+document.getElementById('transaction-btn').addEventListener("click", function(){
+    const transactionCardcontainer = document.getElementById("transaction-card-container")
+    transactionCardcontainer.innerHTML = ''
+    for(const data of transactionList){
+        const div = document.createElement('div')
+        div.innerHTML = `
+            <div class="flex justify-between items-center border-2 border-gray-200 bg-white rounded-xl py-2 px-3 mb-2">
+                <div class="flex items-center gap-2">
+                    <div class=" p-2 rounded-full bg-[#F4F5F7]">
+                        <img src="./assets/wallet1.png" alt="">
+                    </div>
+                    <div>
+                        <h1 class="font-semibold text-base text-[#08080880]">${data.name}</h1>
+                        <p class="text-xs text-[#08080880]">${data.date}</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-ellipsis-vertical text-[#08080880] text-xl"></i>
+            </div>
+        `
+        transactionCardcontainer.appendChild(div)
+    }
 })

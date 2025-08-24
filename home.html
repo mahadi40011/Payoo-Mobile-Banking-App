@@ -52,7 +52,7 @@
             </div>
             <div id="transaction-btn" class=" home-page-toggle-btn border-2 border-gray-200 py-5 px-2 rounded-xl ">
                 <img class="mx-auto" src="./assets/transaction1.png" alt="">
-                <p class="toggle-btn-title text-xs font-semibold text-center text-[#08080880] ">Transactions</p>
+                <p id="transaction-title" class="toggle-btn-title text-xs font-semibold text-center text-[#08080880] ">Transactions</p>
             </div>
         </div>
     </header>
@@ -199,7 +199,17 @@
                 </div>
                 <button id="btn-pay-bill" type="button"  class="btn h-11 text-[20px] font-semibold text-white bg-[#0874F2] w-full rounded-3xl ">Pay Now</button>            
             </form>            
-        </div>        
+        </div>
+        
+        <!-- Transaction section -->
+        <div id="transaction-parent" class="homepage-form ">
+            <div class="flex justify-between items-center">
+                <h1 class="mb-3 font-bold text-lg">Transaction History</h1>
+                <p class="text-[#08080880] text-sm ">View All</p>
+            </div>
+            <div id="transaction-card-container">            
+            </div>
+        </div>
 
     </main>
 
